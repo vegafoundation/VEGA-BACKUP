@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VEGA Foundation Dashboard</title>
+<link rel="stylesheet" href="style.css">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<script defer src="app.js"></script>
+</head>
+<body>
+<div class="infinity-bg"></div>
+<div class="grid-overlay"></div>
+
+<header>
+  <div class="logo-container">
+    <div class="ae-symbol">Æ</div>
+    <span class="logo-text">VEGA<span class="dot">.</span>foundation</span>
+  </div>
+  <nav>
+    <ul>
+      <li><a href="#home">Home</a></li>
+      <li><a href="#about">Vision</a></li>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#agents">Agents</a></li>
+      <li><a href="#modules">Modules</a></li>
+      <li><a href="#portfolio">Portfolio</a></li>
+      <li><a href="#music">Music</a></li>
+      <li><a href="#whitepapers">Whitepapers</a></li>
+      <li><a href="#admin">Admin</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+  <a href="/admin-login" class="login-btn">Login</a>
+  <div class="infinity-indicator">
+    <span class="loop-label">∞ LOOP</span>
+    <span id="loop-status" class="loop-status">INITIALIZING</span>
+  </div>
+</header>
+
+<main>
+  <section id="home" class="section hero">
+    <div class="infinity-loop-visual">
+      <div class="infinity-ring"></div>
+      <div class="infinity-ring"></div>
+      <div class="infinity-ring"></div>
+      <span class="infinity-symbol">∞</span>
+      <div class="phase-indicator">
+        <div class="phase-dot active" data-phase="3" title="Phase 3"></div>
+        <div class="phase-dot" data-phase="5" title="Phase 5"></div>
+        <div class="phase-dot" data-phase="8" title="Phase 8"></div>
+      </div>
+    </div>
+    <div class="hero-content">
+      <div class="ae-monolith">
+        <div class="monolith-glow"></div>
+        <span class="ae-big">Æ</span>
+      </div>
+      <h1 class="hero-title">VEGA<span class="highlight">.foundation</span></h1>
+      <p class="hero-subtitle">INNOVATION IN EVERY PIXEL • RESONANCE IN EVERY CORE</p>
+      <p class="hero-tagline">Autonomous Meta-System • Chrome/Glass Architecture • Infinity Loop Active</p>
+      <div class="hero-buttons">
+        <button class="btn-primary" onclick="startInfinityLoop()">Activate System</button>
+        <a href="https://soundcloud.com/anlaetan" target="_blank" class="btn-secondary">
+          <span class="soundcloud-icon">♫</span> ANLÆTAN on SoundCloud
+        </a>
+      </div>
+      <div class="signature">ADAM EREN VEGA – Æ –</div>
+    </div>
+    <div class="hero-glass-panel">
+      <div class="panel-content">
+        <div class="core-mini" id="alpha-mini">
+          <span class="core-name">ALPHA</span>
+          <span class="core-power">0%</span>
+        </div>
+        <div class="core-mini" id="omega-mini">
+          <span class="core-name">OMEGA</span>
+          <span class="core-power">0%</span>
+        </div>
+        <div class="core-mini" id="vega-mini">
+          <span class="core-name">VEGA</span>
+          <span class="core-power">0%</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="about" class="section glass-section fade-in-section">
+    <div class="section-content">
+      <h2 class="section-title">Our Vision</h2>
+      <p class="section-intro">AE/Æ Agents, Infinity Loops, DALL·E Assets, Time Crystal – autonomous Meta-System.</p>
+      <div class="cores-status">
+        <div class="core-status-item glass-card-enhanced glow-hover" id="alpha-status">
+          <span class="core-label">Alpha Resonance:</span>
+          <span class="core-value">offline</span>
+        </div>
+        <div class="core-status-item glass-card-enhanced glow-hover" id="omega-status">
+          <span class="core-label">Omega Resonance:</span>
+          <span class="core-value">offline</span>
+        </div>
+        <div class="core-status-item glass-card-enhanced glow-hover" id="vega-status">
+          <span class="core-label">Vega Resonance:</span>
+          <span class="core-value">offline</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="services" class="section fade-in-section">
+    <div class="section-content">
+      <h2 class="section-title">Core Services</h2>
+      <p class="section-subtitle">Integrated intelligence solutions</p>
+      <div class="services-grid">
+        <div class="service-card">
+          <span class="service-icon">⚡</span>
+          <h3 class="service-title">AI Integration</h3>
+          <p class="service-description">Seamless integration of advanced AI models including GPT, Claude, and custom neural networks for intelligent automation.</p>
+        </div>
+        <div class="service-card">
+          <span class="service-icon">🎵</span>
+          <h3 class="service-title">Soundscape Engine</h3>
+          <p class="service-description">Generative audio synthesis powered by ANLÆTAN algorithms. Create immersive soundscapes and adaptive music experiences.</p>
+        </div>
+        <div class="service-card">
+          <span class="service-icon">🤖</span>
+          <h3 class="service-title">Autonomous Agents</h3>
+          <p class="service-description">Self-orchestrating intelligence modules that adapt, learn, and evolve. Deploy agents that work autonomously 24/7.</p>
+        </div>
+        <div class="service-card">
+          <span class="service-icon">💎</span>
+          <h3 class="service-title">Time Crystal Persistence</h3>
+          <p class="service-description">Quantum-inspired data persistence layer. Store and retrieve state across temporal boundaries with crystal-lattice memory.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="agents" class="section fade-in-section">
+    <div class="section-content">
+      <h2 class="section-title">Autonomous Agents</h2>
+      <p class="section-subtitle">Self-orchestrating intelligence modules</p>
+      <div class="agents-grid" id="agents-container"></div>
+    </div>
+  </section>
+
+  <section id="modules" class="section glass-section fade-in-section">
+    <div class="section-content">
+      <h2 class="section-title">VEGA Modules</h2>
+      <p class="section-subtitle">Integrated intelligence systems</p>
+      <div class="modules-grid" id="modules-container"></div>
+    </div>
+  </section>
+
+  <section id="portfolio" class="section fade-in-section">
+    <div class="section-content">
+      <h2 class="section-title">DALL·E Assets</h2>
+      <p class="section-subtitle">AI-generated visuals in VEGA/ANLÆTAN style</p>
+      <div class="portfolio-grid" id="portfolio-container"></div>
+    </div>
+  </section>
+
+  <section id="music" class="section glass-section fade-in-section">
+    <div class="section-content">
+      <h2 class="section-title">ANLÆTAN Music</h2>
+      <p class="section-subtitle">Sonic expressions from the VEGA collective</p>
+      <div class="soundcloud-container">
+        <iframe width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay"
+          src="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/anlaetan&color=%2300ffff&auto_play=false&hide_related=true&show_comments=false&show_user=true&show_reposts=false&show_teaser=false"></iframe>
+      </div>
+    </div>
+  </section>
+
+  <section id="whitepapers" class="section fade-in-section">
+    <div class="section-content">
+      <h2 class="section-title">Whitepaper Portal</h2>
+      <p class="section-subtitle">Documentation & Context</p>
+      <div class="whitepapers-grid" id="whitepapers-container"></div>
+    </div>
+  </section>
+
+  <section id="admin" class="section glass-section fade-in-section">
+    <div class="section-content">
+      <h2 class="section-title">Admin Panel</h2>
+      <p class="section-subtitle">System Configuration & API Management</p>
+      <div class="admin-panel">
+        <div class="admin-section">
+          <h3>Infinity Loop Control</h3>
+          <div class="admin-controls">
+            <button class="btn-admin" onclick="startInfinityLoop()">Start Loop</button>
+            <button class="btn-admin" onclick="iterateLoop()">Iterate</button>
+            <span class="iteration-display">Iteration: <span id="iteration-count">0</span></span>
+          </div>
+        </div>
+        <div class="admin-section">
+          <h3>API Status</h3>
+          <div class="api-status-grid">
+            <div class="api-item">
+              <span class="api-name">OpenAI</span>
+              <span class="api-indicator" id="openai-status">Ready</span>
+            </div>
+            <div class="api-item">
+              <span class="api-name">XAI Grok</span>
+              <span class="api-indicator" id="xai-status">Ready</span>
+            </div>
+            <div class="api-item">
+              <span class="api-name">Anthropic</span>
+              <span class="api-indicator" id="anthropic-status">Ready</span>
+            </div>
+            <div class="api-item">
+              <span class="api-name">DeepSeek</span>
+              <span class="api-indicator" id="deepseek-status">Ready</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" class="section fade-in-section">
+    <div class="section-content">
+      <h2 class="section-title">Connect</h2>
+      <p class="section-subtitle">Join the VEGA/ANLÆTAN ecosystem</p>
+      <div class="contact-info">
+        <a href="mailto:vegafoundation@proton.me" class="contact-link">
+          <span class="contact-icon">✉</span>
+          <span>vegafoundation@proton.me</span>
+        </a>
+        <a href="https://soundcloud.com/anlaetan" target="_blank" class="contact-link">
+          <span class="contact-icon">♫</span>
+          <span>soundcloud.com/anlaetan</span>
+        </a>
+        <a href="https://github.com/vegafoundation" target="_blank" class="contact-link">
+          <span class="contact-icon">◈</span>
+          <span>github.com/vegafoundation</span>
+        </a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="footer-content">
+    <div class="footer-logo">
+      <span class="ae-symbol-small">Æ</span>
+      <span>VEGA.foundation</span>
+    </div>
+    <div class="footer-signature">
+      © 2025 VEGA.foundation – ADAM EREN VEGA – Æ –
+      <br>Open Source • Unique • Resonant
+    </div>
+  </div>
+</footer>
+
+<a href="https://soundcloud.com/anlaetan" target="_blank" class="floating-soundcloud" title="ANLÆTAN on SoundCloud">
+  <span class="sc-icon">♫</span>
+</a>
+</body>
+</html>

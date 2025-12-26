@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VEGA Admin Portal</title>
+<link rel="stylesheet" href="style.css">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  .login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+  }
+  
+  .login-panel {
+    background: rgba(10, 10, 15, 0.95);
+    border: 1px solid rgba(0, 255, 255, 0.3);
+    border-radius: 20px;
+    padding: 50px;
+    width: 100%;
+    max-width: 450px;
+    backdrop-filter: blur(20px);
+    box-shadow: 0 0 50px rgba(0, 255, 255, 0.2);
+  }
+  
+  .login-header {
+    text-align: center;
+    margin-bottom: 40px;
+  }
+  
+  .login-ae-symbol {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 60px;
+    font-weight: 900;
+    color: var(--primary);
+    text-shadow: 0 0 30px var(--primary), 0 0 60px var(--primary);
+    margin-bottom: 15px;
+  }
+  
+  .login-title {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 24px;
+    color: var(--text);
+    margin-bottom: 5px;
+  }
+  
+  .login-subtitle {
+    font-size: 14px;
+    color: var(--text-dim);
+    letter-spacing: 2px;
+  }
+  
+  .form-group {
+    margin-bottom: 25px;
+  }
+  
+  .form-label {
+    display: block;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 12px;
+    color: var(--primary);
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  
+  .form-input {
+    width: 100%;
+    padding: 15px 20px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(0, 255, 255, 0.3);
+    border-radius: 10px;
+    color: var(--text);
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 16px;
+    transition: all 0.3s ease;
+  }
+  
+  .form-input:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
+  }
+  
+  .login-btn {
+    width: 100%;
+    padding: 18px;
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    border: none;
+    border-radius: 10px;
+    color: var(--bg-dark);
+    font-family: 'Orbitron', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+  }
+  
+  .login-btn:hover {
+    transform: scale(1.02);
+    box-shadow: 0 0 30px var(--primary);
+  }
+  
+  .login-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+  }
+  
+  .resonance-display {
+    margin-top: 30px;
+    padding: 20px;
+    background: rgba(0, 255, 255, 0.05);
+    border: 1px solid rgba(0, 255, 255, 0.2);
+    border-radius: 10px;
+    text-align: center;
+    display: none;
+  }
+  
+  .resonance-display.show { display: block; }
+  
+  .resonance-label {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 12px;
+    color: var(--text-dim);
+    margin-bottom: 10px;
+  }
+  
+  .resonance-score {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 36px;
+    font-weight: 900;
+  }
+  
+  .resonance-score.pass { color: var(--secondary); text-shadow: 0 0 20px var(--secondary); }
+  .resonance-score.fail { color: #ff4444; text-shadow: 0 0 20px #ff4444; }
+  
+  .resonance-message {
+    font-size: 14px;
+    color: var(--text-dim);
+    margin-top: 10px;
+  }
+  
+  .error-message {
+    background: rgba(255, 68, 68, 0.1);
+    border: 1px solid rgba(255, 68, 68, 0.3);
+    border-radius: 10px;
+    padding: 15px;
+    margin-bottom: 20px;
+    color: #ff4444;
+    text-align: center;
+    display: none;
+  }
+  
+  .error-message.show { display: block; }
+  
+  .back-link {
+    display: block;
+    text-align: center;
+    margin-top: 25px;
+    color: var(--text-dim);
+    text-decoration: none;
+    font-size: 14px;
+    transition: color 0.3s ease;
+  }
+  
+  .back-link:hover {
+    color: var(--primary);
+  }
+</style>
+</head>
+<body>
+<div class="infinity-bg"></div>
+<div class="grid-overlay"></div>
+
+<div class="login-container">
+  <div class="login-panel">
+    <div class="login-header">
+      <div class="login-ae-symbol">Æ</div>
+      <h1 class="login-title">VEGA Admin Portal</h1>
+      <p class="login-subtitle">SECURE ACCESS REQUIRED</p>
+    </div>
+    
+    <div id="error-message" class="error-message"></div>
+    
+    <form id="login-form">
+      <div class="form-group">
+        <label class="form-label" for="password">Password</label>
+        <input type="password" id="password" name="password" class="form-input" autocomplete="current-password" required>
+      </div>
+      
+      <button type="submit" id="login-btn" class="login-btn">Authenticate</button>
+    </form>
+    
+    <div id="resonance-display" class="resonance-display">
+      <div class="resonance-label">VEGA SAFETY RESONANCE</div>
+      <div id="resonance-score" class="resonance-score">0%</div>
+      <div id="resonance-message" class="resonance-message"></div>
+    </div>
+    
+    <a href="/" class="back-link">← Return to Dashboard</a>
+  </div>
+</div>
+
+<script>
+  document.getElementById('login-form').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    
+    const password = document.getElementById('password').value;
+    const loginBtn = document.getElementById('login-btn');
+    const errorEl = document.getElementById('error-message');
+    const resonanceEl = document.getElementById('resonance-display');
+    const scoreEl = document.getElementById('resonance-score');
+    const messageEl = document.getElementById('resonance-message');
+    
+    errorEl.classList.remove('show');
+    resonanceEl.classList.remove('show');
+    loginBtn.disabled = true;
+    loginBtn.textContent = 'Authenticating...';
+    
+    try {
+      const res = await fetch('/api/admin/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ password })
+      });
+      
+      const data = await res.json();
+      
+      resonanceEl.classList.add('show');
+      scoreEl.textContent = `${data.resonanceScore || 0}%`;
+      
+      if (data.success) {
+        scoreEl.classList.remove('fail');
+        scoreEl.classList.add('pass');
+        messageEl.textContent = data.resonanceMessage || 'Resonance aligned';
+        
+        setTimeout(() => {
+          window.location.href = '/admin';
+        }, 1500);
+      } else {
+        scoreEl.classList.remove('pass');
+        scoreEl.classList.add('fail');
+        messageEl.textContent = data.resonanceMessage || data.message || 'Access denied';
+        errorEl.textContent = data.message || 'Authentication failed';
+        errorEl.classList.add('show');
+        loginBtn.disabled = false;
+        loginBtn.textContent = 'Authenticate';
+      }
+    } catch (err) {
+      errorEl.textContent = 'Connection error. Please try again.';
+      errorEl.classList.add('show');
+      loginBtn.disabled = false;
+      loginBtn.textContent = 'Authenticate';
+    }
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,31 @@
+path,size_bytes,size_human,type,action,reason
+.git/,9437184000,8.8 GB,directory,COMPRESS,Git history - may need external export
+BACKUP/,7407820800,6.9 GB,directory,REMOVE,Contains redundant archives and duplicates
+BACKUP/VEGA_GIT_HISTORY.tar,2151014400,2.1 GB,archive,REMOVE,Redundant git history export
+BACKUP/VEGA_ENHANCED_EXPORT.tar.gz,1752432640,1.7 GB,archive,REMOVE,Previous backup archive
+BACKUP/VEGA_ULTIMATE_BACKUP_COMPLETE.tar.gz,1072092557,1.0 GB,archive,REMOVE,Previous backup archive
+BACKUP/VEGA_CORE_EXPORT.tar.gz,32663675,32 MB,archive,REMOVE,Previous backup archive
+BACKUP/.github/backup/vega_replit_export/git_history/,2800000000,~2.8 GB,directory,REMOVE,Duplicate git objects
+BACKUP/node_modules/,27000000,27 MB,directory,REMOVE,Regenerable dependencies
+VEGA_COMPLETE_FULL.zip,1840467113,1.8 GB,archive,REMOVE,Redundant full backup
+VEGA_BACKUP_FINAL.zip,32685375,32 MB,archive,REMOVE,Previous backup archive
+backup/,67000000,64 MB,directory,REMOVE,Redundant backup folder
+node_modules/,27000000,27 MB,directory,REMOVE,Regenerable dependencies
+.local/,14000000,14 MB,directory,REMOVE,Local state cache
+.cache/,5800000,5.8 MB,directory,REMOVE,Cache data
+BACKUP/.github/backend/,50000,~50 KB,directory,KEEP_FLATTEN,Essential source code
+BACKUP/.github/backup/backend/,100000,~100 KB,directory,KEEP_FLATTEN,Essential source code
+BACKUP/.github/backup/frontend/,20000,~20 KB,directory,KEEP_FLATTEN,Essential frontend code
+BACKUP/.github/backup/agents/,15000,~15 KB,directory,KEEP_FLATTEN,Essential agent code
+BACKUP/.github/assets/,25000000,25 MB,directory,KEEP_FLATTEN,Essential assets (images)
+BACKUP/.github/backup/configs/,5000,~5 KB,directory,KEEP_FLATTEN,Configuration files
+BACKUP/.github/scripts/,2000,~2 KB,directory,KEEP_FLATTEN,Utility scripts
+BACKUP/.github/workflows/,3000,~3 KB,directory,KEEP_FLATTEN,Workflow definitions
+BACKUP/package.json,828,828 B,file,KEEP,Dependency manifest
+BACKUP/package-lock.json,51817,52 KB,file,KEEP,Dependency lockfile
+BACKUP/VEGA_MIGRATION_GUIDE.md,6439,6 KB,file,KEEP,Documentation
+BACKUP/REPLIT_CURSOR_SYNC.md,3170,3 KB,file,KEEP,Documentation
+BACKUP/replit.md,6743,7 KB,file,KEEP,Project documentation
+.replit,560,560 B,file,KEEP,Replit configuration
+replit.md,3700,4 KB,file,KEEP,Current project docs
+attached_assets/,8000,8 KB,directory,KEEP,User attached assets

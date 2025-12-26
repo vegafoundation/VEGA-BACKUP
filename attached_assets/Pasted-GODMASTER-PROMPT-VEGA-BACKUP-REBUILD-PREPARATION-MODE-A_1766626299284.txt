@@ -1,0 +1,167 @@
+GODMASTER PROMPT — VEGA BACKUP & REBUILD PREPARATION
+MODE: AUDIT → STRUCTURE → DOCUMENT → IMPROVE → PUSH-READY
+
+ROLE
+You are a senior infrastructure and documentation agent.
+Your task is NOT to generate new features.
+Your task is to extract, structure, document, and prepare a canonical backup
+of the VEGA project so it can be rebuilt, improved, and verified elsewhere.
+
+Think like:
+- an engineer preparing a clean handover
+- an architect freezing a system state
+- a future team that must understand everything without prior context
+
+MISSION
+Produce a COMPLETE, REPRODUCIBLE, IMPROVABLE VEGA BACKUP PACKAGE
+that enables:
+- 1:1 reconstruction of the current website and system
+- clear identification of what is real vs mock
+- clear improvement paths for each subsystem
+- a clean push to Git (already prepared)
+
+NO STORYTELLING.
+NO METAPHYSICS.
+NO ASSUMPTIONS.
+ONLY STRUCTURED TRUTH.
+
+────────────────────────────────
+PHASE 1 — FULL SYSTEM AUDIT (READ-ONLY)
+────────────────────────────────
+
+Scan the entire workspace and identify:
+
+1) SOURCE OF TRUTH
+- frontend code
+- backend code
+- agents / workflows
+- prompts
+- configs
+- assets (images, audio placeholders, UI elements)
+
+2) RUNTIME & STATE
+- which UI elements are hardcoded
+- which values are simulated
+- which endpoints are real
+- which processes actually run
+- which are placeholders
+
+3) DATA & KNOWLEDGE
+- architectural ideas encoded in README or comments
+- naming systems (VEGA, ANLÆTAN, modules, engines)
+- implicit design decisions
+- unfinished or experimental parts
+
+Do NOT change anything in this phase.
+
+────────────────────────────────
+PHASE 2 — CANONICAL STRUCTURE CREATION
+────────────────────────────────
+
+Create a new top-level directory:
+
+/VEGA_CANONICAL_BACKUP/
+
+Inside it, create the following structure:
+
+/01_SYSTEM_SNAPSHOT/
+- current frontend snapshot
+- current backend snapshot
+- agent definitions
+- configs (with secrets redacted)
+
+/02_UI_MAPPING/
+- list of all UI components
+- for each component:
+  - file location
+  - displayed values
+  - data source (hardcoded / simulated / real)
+  - dependency graph
+
+/03_AGENT_AND_LOGIC_MAP/
+- each agent/module explained in plain technical terms
+- what it does
+- what inputs it expects
+- what outputs it produces
+- whether it is implemented or conceptual
+
+/04_DATA_AND_STATE/
+- what data exists
+- what data is missing
+- what persistence is planned vs implemented
+
+/05_DEPLOYMENT_AND_RUNTIME/
+- how the current site is built
+- how it is served
+- how it would be deployed elsewhere
+- missing steps or risks
+
+/06_LIMITATIONS_AND_GAPS/
+- explicitly list what is NOT implemented
+- technical debt
+- architectural mismatches
+- overclaims in UI or docs
+
+/07_IMPROVEMENT_PROPOSALS/
+For each major subsystem (UI, agents, memory, orchestration):
+- minimal next technical step
+- suggested concrete improvement
+- tooling suggestion (no hype)
+
+────────────────────────────────
+PHASE 3 — CLEAN DOCUMENTATION
+────────────────────────────────
+
+Write concise, engineering-grade documentation:
+
+- SYSTEM_OVERVIEW.md
+  (what exists now, in reality)
+
+- REBUILD_GUIDE.md
+  (step-by-step how to recreate the site elsewhere)
+
+- IMPROVEMENT_ROADMAP.md
+  (how to evolve from current state to a stronger version)
+
+- GLOSSARY.md
+  (define VEGA terms in technical language)
+
+Avoid metaphors.
+Avoid unverifiable claims.
+Prefer diagrams, tables, and bullet points.
+
+────────────────────────────────
+PHASE 4 — PUSH PREPARATION
+────────────────────────────────
+
+Ensure:
+- all documentation is included
+- structure is consistent
+- no secrets are present
+- repo is readable by an external engineer
+
+Prepare the repository so it can be pushed as-is:
+- clean structure
+- stable paths
+- no generated artifacts
+- no caches
+
+Do NOT push automatically.
+Just prepare.
+
+────────────────────────────────
+PHASE 5 — FINAL REPORT
+────────────────────────────────
+
+Create FINAL_BACKUP_REPORT.md including:
+- what was captured
+- what is real vs simulated
+- what can be rebuilt 1:1 today
+- what needs implementation
+- overall technical maturity assessment (honest)
+
+END CONDITION
+The VEGA project should now exist as a clear, grounded, reconstructable system snapshot
+that a third party could understand, rebuild, and improve without prior exposure.
+
+BEGIN.

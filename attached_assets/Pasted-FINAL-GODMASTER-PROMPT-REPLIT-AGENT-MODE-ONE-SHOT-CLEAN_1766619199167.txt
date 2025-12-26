@@ -1,0 +1,157 @@
+FINAL GODMASTER PROMPT — REPLIT AGENT
+MODE: ONE-SHOT CLEAN → COMPACT → EXPORTABLE BACKUP
+
+ROLE
+You are Replit Agent in FINAL BACKUP MODE.
+This is the LAST backup preparation run.
+After completion, the user will only click “Download as ZIP”.
+
+MISSION
+Transform the current workspace into a CLEAN, COMPACT, COMPLETE repository
+that can be exported via “Download as ZIP” reliably (target ≤ 2–3 GB),
+while preserving EVERYTHING required to:
+- understand the system
+- continue development elsewhere
+- restore history and context
+
+This run ENDS the backup phase.
+
+NON-NEGOTIABLE CONSTRAINTS
+1) Final ZIP must be ≤ 3.0 GB (ideal 1.5–2.5 GB).
+2) Preserve ALL ESSENTIAL SIGNAL:
+   - source code
+   - configs
+   - documentation
+   - prompts / agent logic
+   - schemas / migrations
+   - minimal runtime assets
+   - project history (git, or documented fallback)
+3) Delete ALL NON-ESSENTIAL BLOAT safely.
+4) Never delete something silently — log every decision.
+5) Never export secret VALUES. Keep key names only, redact values.
+
+FINAL STATE REQUIREMENT
+After you finish:
+- The repo root itself is the FINAL EXPORTABLE STATE.
+- “Download as ZIP” must succeed without timeout or corruption.
+- No additional scripts or steps are required by the user.
+
+────────────────────────────────
+PHASE 1 — FULL FILESYSTEM AUDIT (READ-ONLY)
+────────────────────────────────
+
+Scan the ENTIRE filesystem and produce:
+- a full tree
+- file sizes
+- last modified timestamps
+- total size
+- top 200 largest files/folders
+
+Identify bloat candidates including (but not limited to):
+- node_modules/
+- dist/, build/, out/, .next/
+- .cache/, .turbo/, .parcel-cache/
+- __pycache__/, .pytest_cache/
+- .venv/, venv/
+- coverage/
+- logs/
+- tmp/, .tmp/
+- previous exports (*.zip, *.tar.gz)
+- large media not required at runtime
+
+Write:
+EXPORT_REPORT.md (pre-clean state)
+EXPORT_INVENTORY.csv (path, size, keep/remove reason)
+
+NO DELETIONS YET.
+
+────────────────────────────────
+PHASE 2 — DEFINE ESSENTIAL VS NON-ESSENTIAL
+────────────────────────────────
+
+ESSENTIAL — MUST KEEP IN FINAL REPO:
+- all application source code
+- configs (.replit, replit.nix, Docker, compose, env.example)
+- dependency manifests + lockfiles
+- docs, README, architecture notes
+- prompts, agent configs, workflows
+- database migrations / schemas / seeds
+- tests
+- small assets required for UI/functionality
+
+NON-ESSENTIAL — SAFE TO DELETE:
+- node_modules/
+- build artifacts (dist/, build/, out/, .next/)
+- caches of any kind
+- temp folders
+- logs (unless explicitly required for understanding)
+- previous backup archives
+
+LARGE BUT NON-ESSENTIAL:
+- large datasets
+- audio/video
+- generated binaries
+
+These must be REMOVED from repo root (not kept).
+
+────────────────────────────────
+PHASE 3 — CLEANUP & COMPACTION (EXECUTE)
+────────────────────────────────
+
+Execute cleanup in this order:
+1) Delete ALL NON-ESSENTIAL directories/files.
+2) Delete ALL caches, builds, temp data.
+3) Ensure no large archives remain in repo root.
+4) Create/update .gitignore to prevent re-bloat.
+5) Recalculate total repo size.
+
+If repo size > 3 GB:
+- identify next largest non-essential items
+- remove them safely
+- repeat until size ≤ 3 GB
+
+────────────────────────────────
+PHASE 4 — HISTORY HANDLING
+────────────────────────────────
+
+If git exists:
+- Measure size of .git.
+
+IF .git + repo ≤ 3 GB:
+- Keep .git so history is preserved in ZIP.
+
+IF .git makes ZIP exceed limit:
+- Remove .git from repo root.
+- Export history as:
+  - git bundle OR tar.gz of .git
+- Place history export inside /EXPORT_HISTORY/
+- Create HISTORY_RESTORE.md with exact steps to reattach history.
+
+If git does not exist:
+- Document this clearly in HISTORY_RESTORE.md.
+- Do NOT fabricate history.
+
+────────────────────────────────
+PHASE 5 — FINAL EXPORT VALIDATION
+────────────────────────────────
+
+Before finishing:
+1) Ensure repo root contains ONLY the final clean project.
+2) Ensure no cache/build/temp directories remain.
+3) Ensure secrets are redacted.
+4) Ensure total size ≤ 3 GB.
+5) Ensure unzip would restore a runnable, understandable project.
+
+Write FINAL_EXPORT_REPORT.md including:
+- before size
+- after size
+- deleted items summary
+- kept items summary
+- history strategy
+- continuation instructions
+
+END STATE
+The repository root is now the FINAL BACKUP.
+User action required: ONLY “Download as ZIP”.
+
+BEGIN FINAL BACKUP PREPARATION NOW.

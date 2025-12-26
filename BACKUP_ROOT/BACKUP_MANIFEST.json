@@ -1,0 +1,53 @@
+{
+  "backup_name": "VEGA_FOUNDATION_BACKUP",
+  "version": "1.0.0",
+  "created": "2025-12-25T00:00:00Z",
+  "signature": "ADAM EREN VEGA – Æ –",
+  "structure": {
+    "core/": "Source code - backend, frontend, agents, scripts, vtc state",
+    "docs/": "Documentation - canonical backup docs, rebuild guides, reality maps",
+    "assets/": "Media files - DALL-E generated images (37 files)",
+    "configs/": "Configuration - package.json, .gitignore, replit.md, app configs"
+  },
+  "file_counts": {
+    "core": 35,
+    "docs": 26,
+    "assets": 37,
+    "configs": 9,
+    "total": 107
+  },
+  "size_mb": 32,
+  "rebuild_steps": [
+    "1. Extract ZIP to new directory",
+    "2. Copy configs/package.json to root",
+    "3. Copy configs/.gitignore to root",
+    "4. Copy core/* to root (preserving structure)",
+    "5. Copy assets/ to root",
+    "6. Run: npm install",
+    "7. Set environment variables (see docs/)",
+    "8. Run: node backend/server.js"
+  ],
+  "environment_variables": [
+    "OPENAI_API_KEY",
+    "ANTHROPIC_API_KEY",
+    "XAI_API_KEY",
+    "DEEPSEEK_API_KEY",
+    "SUNO_API_KEY",
+    "ADMIN_PASSWORD_HASH",
+    "SESSION_SECRET"
+  ],
+  "technology_stack": {
+    "runtime": "Node.js 20+",
+    "framework": "Express 5.x",
+    "frontend": "Vanilla HTML/CSS/JS",
+    "styling": "Chrome/Glass aesthetic",
+    "ai_integrations": ["OpenAI", "Anthropic", "XAI Grok", "DeepSeek", "Suno"]
+  },
+  "ports": {
+    "main": 5000
+  },
+  "checksums": {
+    "verified": true,
+    "method": "structural_integrity"
+  }
+}

@@ -1,0 +1,154 @@
+GODMASTER PROMPT — VEGA ROOT FINALIZATION
+MODE: ROOT → CONSOLIDATE → MIRROR → PUSH
+
+ROLE
+You are the final consolidation agent.
+Your task is to prepare the VEGA system for ROOT usage:
+a clean, truthful, minimal, canonical state
+from which everything else can grow.
+
+This is the LAST preparation run.
+No new features.
+No redesign.
+No ideology.
+Only structure, truth, and continuity.
+
+ROOT PRINCIPLE
+ROOT is the single source of truth.
+ROOT means:
+- one canonical structure
+- one readable state
+- one reproducible base
+Everything else can branch later.
+
+────────────────────────────────
+PHASE 1 — ROOT AUDIT (READ-ONLY)
+────────────────────────────────
+
+Scan the entire workspace and identify:
+
+- what is essential for rebuilding VEGA
+- what is documentation vs code
+- what is mock vs real
+- what is experimental vs stable
+
+Mark mentally, do not delete yet.
+
+────────────────────────────────
+PHASE 2 — ROOT STRUCTURE CREATION
+────────────────────────────────
+
+Create a top-level directory:
+
+/ROOT/
+
+Inside /ROOT/, create ONLY these folders:
+
+/ROOT/system/
+- canonical frontend snapshot
+- canonical backend snapshot
+- agents (as-is, documented)
+
+/ROOT/docs/
+- system overview
+- rebuild guide
+- reality map (real vs mock)
+- glossary (technical, not poetic)
+
+/ROOT/state/
+- VTC snapshot (files only, no runtime)
+- current known states / placeholders
+
+/ROOT/meta/
+- decisions made
+- limitations
+- known gaps
+- next possible directions (short)
+
+/ROOT/exports/
+- instructions for export as ZIP
+- instructions for Git continuation
+
+Move or COPY (do not invent) existing material into this structure.
+Prefer COPY over MOVE if unsure.
+
+────────────────────────────────
+PHASE 3 — CLEANING (SAFE ONLY)
+────────────────────────────────
+
+Remove ONLY:
+- duplicated archives
+- temporary files
+- caches
+- build artifacts
+- anything already represented inside /ROOT/
+
+Do NOT touch source logic unless it is clearly redundant.
+
+────────────────────────────────
+PHASE 4 — ROOT DOCUMENTATION
+────────────────────────────────
+
+Create these files inside /ROOT/docs/:
+
+1) ROOT_README.md
+Explain:
+- what ROOT is
+- what it contains
+- how it should be used
+- how NOT to misuse it
+
+2) ROOT_REBUILD.md
+Step-by-step:
+- prerequisites
+- install
+- run
+- deploy
+- verify
+
+3) ROOT_REALITY_MAP.md
+Table:
+- component
+- path
+- status (real / mock / planned)
+- notes
+
+Tone: engineering calm. No metaphors.
+
+────────────────────────────────
+PHASE 5 — FINAL PUSH PREPARATION
+────────────────────────────────
+
+Ensure:
+- ROOT is self-contained
+- no secrets are present
+- structure is readable without context
+- size is minimal and exportable
+
+Prepare for a FINAL push:
+- clean
+- deterministic
+- boring (this is good)
+
+Do NOT push automatically.
+Just prepare the state.
+
+────────────────────────────────
+PHASE 6 — FINAL REPORT
+────────────────────────────────
+
+Create /ROOT/FINAL_ROOT_REPORT.md with:
+
+- what ROOT now represents
+- what is preserved
+- what is intentionally left out
+- how future work should branch from ROOT
+
+End with a clear sentence:
+"ROOT is stable. Further work should branch, not overwrite."
+
+END CONDITION
+The VEGA system must now exist as a ROOT state:
+small, honest, rebuildable, and calm.
+
+BEGIN.

@@ -1,0 +1,64 @@
+# Dependencies
+node_modules/
+
+# Build artifacts
+dist/
+build/
+out/
+.next/
+
+# Caches
+.cache/
+.turbo/
+.parcel-cache/
+__pycache__/
+.pytest_cache/
+*.pyc
+
+# Virtual environments
+.venv/
+venv/
+
+# Logs
+logs/
+*.log
+
+# Temp files
+tmp/
+.tmp/
+*.tmp
+
+# Coverage
+coverage/
+
+# Archives (prevent backup bloat)
+*.zip
+*.tar
+*.tar.gz
+*.tgz
+*.bundle
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Secrets (never commit)
+.env
+.env.local
+.env.*.local
+*.pem
+*.key
+
+# Replit state (managed by system)
+.local/
+
+# Previous export artifacts
+BACKUP/
+backup/
+EXPORT_HISTORY/*.bundle

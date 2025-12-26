@@ -1,0 +1,866 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VEGA Admin Control Panel</title>
+<link rel="stylesheet" href="style.css">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  .admin-wrapper {
+    min-height: 100vh;
+    padding: 100px 20px 40px;
+  }
+  
+  .admin-header {
+    max-width: 1200px;
+    margin: 0 auto 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .admin-title {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 24px;
+    color: var(--primary);
+    text-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
+  }
+  
+  .logout-btn {
+    padding: 10px 25px;
+    background: transparent;
+    border: 1px solid #ff4444;
+    border-radius: 20px;
+    color: #ff4444;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 11px;
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+  
+  .logout-btn:hover {
+    background: rgba(255, 68, 68, 0.2);
+  }
+  
+  .control-panel {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 25px;
+  }
+  
+  @media (max-width: 900px) {
+    .control-panel { grid-template-columns: 1fr; }
+  }
+  
+  .panel {
+    background: rgba(8, 12, 18, 0.95);
+    border: 1px solid rgba(0, 255, 255, 0.25);
+    border-radius: 15px;
+    padding: 25px;
+    backdrop-filter: blur(20px);
+  }
+  
+  .panel-header {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 14px;
+    color: var(--primary);
+    margin-bottom: 20px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid rgba(0, 255, 255, 0.2);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .notify-toggle {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 11px;
+    color: var(--text-dim);
+  }
+  
+  .section-title {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 11px;
+    color: var(--text-dim);
+    margin: 20px 0 12px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  
+  .input-group {
+    margin-bottom: 12px;
+  }
+  
+  .input-label {
+    display: block;
+    font-size: 11px;
+    color: var(--text-dim);
+    margin-bottom: 6px;
+  }
+  
+  .input-field {
+    width: 100%;
+    padding: 12px 15px;
+    background: rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(0, 255, 255, 0.2);
+    border-radius: 8px;
+    color: var(--text);
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 14px;
+  }
+  
+  .input-field:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 15px rgba(0, 255, 255, 0.2);
+  }
+  
+  .input-field::placeholder {
+    color: rgba(255, 255, 255, 0.3);
+  }
+  
+  .module-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  }
+  
+  .module-row:last-child {
+    border-bottom: none;
+  }
+  
+  .module-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .module-icon {
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 255, 255, 0.1);
+    border-radius: 6px;
+    font-size: 12px;
+  }
+  
+  .module-name {
+    font-size: 13px;
+    color: var(--text);
+  }
+  
+  .toggle {
+    position: relative;
+    width: 40px;
+    height: 22px;
+  }
+  
+  .toggle input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+  
+  .toggle-slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 22px;
+    transition: 0.3s;
+  }
+  
+  .toggle-slider:before {
+    position: absolute;
+    content: "";
+    height: 16px;
+    width: 16px;
+    left: 3px;
+    bottom: 3px;
+    background: white;
+    border-radius: 50%;
+    transition: 0.3s;
+  }
+  
+  .toggle input:checked + .toggle-slider {
+    background: var(--primary);
+  }
+  
+  .toggle input:checked + .toggle-slider:before {
+    transform: translateX(18px);
+  }
+  
+  .cores-display {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+    margin-bottom: 20px;
+  }
+  
+  .core-card {
+    background: linear-gradient(180deg, rgba(0, 255, 255, 0.08) 0%, rgba(0, 255, 255, 0.02) 100%);
+    border: 1px solid rgba(0, 255, 255, 0.2);
+    border-radius: 12px;
+    padding: 20px 15px;
+    text-align: center;
+    position: relative;
+  }
+  
+  .core-shield {
+    width: 50px;
+    height: 50px;
+    margin: 0 auto 12px;
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    box-shadow: 0 0 25px rgba(0, 255, 255, 0.4);
+  }
+  
+  .core-name {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 14px;
+    color: var(--primary);
+    margin-bottom: 5px;
+  }
+  
+  .core-status-badge {
+    font-size: 10px;
+    color: var(--text-dim);
+    padding: 4px 10px;
+    background: rgba(0, 255, 255, 0.1);
+    border-radius: 10px;
+    display: inline-block;
+  }
+  
+  .encrypted-status {
+    margin-top: 8px;
+    font-size: 10px;
+    color: var(--secondary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+  }
+  
+  .encrypted-status::before {
+    content: "🔒";
+    font-size: 10px;
+  }
+  
+  .loop-section {
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 12px;
+    padding: 20px;
+    margin-top: 20px;
+  }
+  
+  .loop-header {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 13px;
+    color: var(--primary);
+    margin-bottom: 15px;
+  }
+  
+  .loop-controls {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 15px;
+  }
+  
+  .loop-btn {
+    flex: 1;
+    padding: 12px;
+    border: 1px solid rgba(0, 255, 255, 0.3);
+    border-radius: 8px;
+    background: rgba(0, 255, 255, 0.05);
+    color: var(--primary);
+    font-family: 'Orbitron', sans-serif;
+    font-size: 11px;
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+  
+  .loop-btn:hover {
+    background: rgba(0, 255, 255, 0.15);
+    box-shadow: 0 0 15px rgba(0, 255, 255, 0.2);
+  }
+  
+  .loop-btn.active {
+    background: var(--primary);
+    color: var(--bg-dark);
+  }
+  
+  .loop-btn.stop {
+    border-color: #ff4444;
+    color: #ff4444;
+  }
+  
+  .loop-btn.stop:hover {
+    background: rgba(255, 68, 68, 0.15);
+  }
+  
+  .loop-stats {
+    display: flex;
+    justify-content: space-between;
+    padding: 12px 15px;
+    background: rgba(0, 255, 255, 0.05);
+    border-radius: 8px;
+  }
+  
+  .stat-item {
+    text-align: center;
+  }
+  
+  .stat-label {
+    font-size: 10px;
+    color: var(--text-dim);
+    margin-bottom: 4px;
+  }
+  
+  .stat-value {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 16px;
+    color: var(--secondary);
+  }
+  
+  .api-section {
+    margin-top: 20px;
+  }
+  
+  .api-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+  
+  .api-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 12px;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+  }
+  
+  .api-name {
+    font-size: 12px;
+    color: var(--text);
+  }
+  
+  .api-badge {
+    font-size: 9px;
+    padding: 3px 8px;
+    border-radius: 10px;
+    text-transform: uppercase;
+  }
+  
+  .api-badge.ready {
+    background: rgba(0, 255, 136, 0.2);
+    color: var(--secondary);
+  }
+  
+  .api-badge.pending {
+    background: rgba(255, 215, 0, 0.2);
+    color: #ffd700;
+  }
+  
+  .signature {
+    text-align: center;
+    margin-top: 30px;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 12px;
+    color: var(--text-dim);
+    letter-spacing: 2px;
+  }
+  
+  .admin-tabs {
+    max-width: 1200px;
+    margin: 0 auto 25px;
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+  
+  .tab-btn {
+    padding: 12px 25px;
+    background: rgba(0, 255, 255, 0.05);
+    border: 1px solid rgba(0, 255, 255, 0.2);
+    border-radius: 25px;
+    color: var(--text-dim);
+    font-family: 'Orbitron', sans-serif;
+    font-size: 11px;
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+  
+  .tab-btn:hover {
+    background: rgba(0, 255, 255, 0.1);
+    color: var(--primary);
+  }
+  
+  .tab-btn.active {
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    color: #000;
+    border-color: transparent;
+  }
+  
+  .tab-content {
+    display: none;
+  }
+  
+  .tab-content.active {
+    display: block;
+  }
+  
+  .panel.full-width {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  .analytics-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+    margin-bottom: 25px;
+  }
+  
+  @media (max-width: 900px) {
+    .analytics-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  
+  .stat-card {
+    background: linear-gradient(135deg, rgba(0, 255, 255, 0.1), rgba(0, 255, 136, 0.05));
+    border: 1px solid rgba(0, 255, 255, 0.2);
+    border-radius: 12px;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+  }
+  
+  .stat-icon {
+    font-size: 28px;
+  }
+  
+  .stat-number {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 24px;
+    color: var(--primary);
+  }
+  
+  .stat-name {
+    font-size: 12px;
+    color: var(--text-dim);
+  }
+  
+  .traffic-list, .activity-log {
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+    padding: 15px;
+    margin-bottom: 20px;
+  }
+  
+  .traffic-item, .activity-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    font-size: 13px;
+  }
+  
+  .traffic-item:last-child, .activity-item:last-child {
+    border-bottom: none;
+  }
+  
+  .traffic-percent {
+    color: var(--secondary);
+    font-family: 'Orbitron', sans-serif;
+  }
+  
+  .textarea {
+    min-height: 80px;
+    resize: vertical;
+  }
+  
+  .save-btn {
+    margin-top: 20px;
+    padding: 15px 35px;
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    border: none;
+    border-radius: 25px;
+    color: #000;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+  
+  .save-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 25px rgba(0, 255, 255, 0.4);
+  }
+</style>
+</head>
+<body>
+<div class="infinity-bg"></div>
+<div class="grid-overlay"></div>
+
+<header>
+  <div class="logo-container">
+    <div class="ae-symbol">Æ</div>
+    <span class="logo-text">VEGA<span class="dot">.</span>foundation</span>
+  </div>
+  <nav>
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="admin.html">Admin</a></li>
+    </ul>
+  </nav>
+  <div class="infinity-indicator">
+    <span class="loop-label">∞ LOOP</span>
+    <span id="header-loop-status" class="loop-status">ACTIVE</span>
+  </div>
+</header>
+
+<div class="admin-wrapper">
+  <div class="admin-header">
+    <h1 class="admin-title">Admin Control Panel</h1>
+    <button id="logout-btn" class="logout-btn">Logout</button>
+  </div>
+  
+  <div class="admin-tabs">
+    <button class="tab-btn active" data-tab="dashboard">Dashboard</button>
+    <button class="tab-btn" data-tab="analytics">Analytics</button>
+    <button class="tab-btn" data-tab="seo">SEO</button>
+    <button class="tab-btn" data-tab="settings">Settings</button>
+    <button class="tab-btn" data-tab="editor">Editor</button>
+  </div>
+  
+  <div class="tab-content active" id="dashboard-tab">
+  <div class="control-panel">
+    <div class="panel">
+      <div class="panel-header">
+        <span>Input Keys</span>
+      </div>
+      
+      <div class="section-title">API Keys</div>
+      <div class="input-group">
+        <label class="input-label">OpenAI API Key</label>
+        <input type="password" class="input-field" placeholder="sk-..." id="openai-key" disabled value="••••••••••••••••">
+      </div>
+      <div class="input-group">
+        <label class="input-label">Anthropic API Key</label>
+        <input type="password" class="input-field" placeholder="sk-ant-..." id="anthropic-key" disabled value="••••••••••••••••">
+      </div>
+      
+      <div class="section-title">Login Credentials</div>
+      <div class="input-group">
+        <label class="input-label">Admin Username</label>
+        <input type="text" class="input-field" value="AEVegaAdmin" disabled>
+      </div>
+      
+      <div class="section-title">Modules</div>
+      <div class="module-row">
+        <div class="module-info">
+          <div class="module-icon">🧠</div>
+          <span class="module-name">Æ Agent</span>
+        </div>
+        <label class="toggle">
+          <input type="checkbox" checked data-module="ae_agent">
+          <span class="toggle-slider"></span>
+        </label>
+      </div>
+      <div class="module-row">
+        <div class="module-info">
+          <div class="module-icon">🌐</div>
+          <span class="module-name">Grid Networks</span>
+        </div>
+        <label class="toggle">
+          <input type="checkbox" checked data-module="grid">
+          <span class="toggle-slider"></span>
+        </label>
+      </div>
+      <div class="module-row">
+        <div class="module-info">
+          <div class="module-icon">🎵</div>
+          <span class="module-name">Soundscape</span>
+        </div>
+        <label class="toggle">
+          <input type="checkbox" checked data-module="soundscape">
+          <span class="toggle-slider"></span>
+        </label>
+      </div>
+      <div class="module-row">
+        <div class="module-info">
+          <div class="module-icon">💾</div>
+          <span class="module-name">Time Crystal</span>
+        </div>
+        <label class="toggle">
+          <input type="checkbox" checked data-module="vtc">
+          <span class="toggle-slider"></span>
+        </label>
+      </div>
+    </div>
+    
+    <div class="panel">
+      <div class="panel-header">
+        <span>Module Status</span>
+        <div class="notify-toggle">
+          <span>Notify</span>
+          <label class="toggle">
+            <input type="checkbox" checked>
+            <span class="toggle-slider"></span>
+          </label>
+        </div>
+      </div>
+      
+      <div class="cores-display">
+        <div class="core-card">
+          <div class="core-shield">α</div>
+          <div class="core-name">Alpha</div>
+          <div class="core-status-badge" id="alpha-badge">Online</div>
+          <div class="encrypted-status">Encrypted</div>
+        </div>
+        <div class="core-card">
+          <div class="core-shield">Ω</div>
+          <div class="core-name">Omega</div>
+          <div class="core-status-badge" id="omega-badge">Online</div>
+          <div class="encrypted-status">Encrypted</div>
+        </div>
+        <div class="core-card">
+          <div class="core-shield">V</div>
+          <div class="core-name">Vega</div>
+          <div class="core-status-badge" id="vega-badge">Online</div>
+          <div class="encrypted-status">Encrypted</div>
+        </div>
+      </div>
+      
+      <div class="loop-section">
+        <div class="loop-header">Infinity Loop Control</div>
+        <div class="loop-controls">
+          <button id="start-loop" class="loop-btn">Start Loop</button>
+          <button id="iterate-loop" class="loop-btn">Iterate</button>
+          <button id="stop-loop" class="loop-btn stop">Stop</button>
+        </div>
+        <div class="loop-stats">
+          <div class="stat-item">
+            <div class="stat-label">Phase</div>
+            <div class="stat-value" id="loop-phase">3</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-label">Iteration</div>
+            <div class="stat-value" id="loop-iterations">0</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-label">Status</div>
+            <div class="stat-value" id="loop-active">Active</div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="api-section">
+        <div class="section-title">API Status</div>
+        <div class="api-grid" id="api-grid"></div>
+      </div>
+    </div>
+  </div>
+  </div>
+  
+  <div class="tab-content" id="analytics-tab">
+    <div class="panel full-width">
+      <div class="panel-header"><span>Analytics Dashboard</span></div>
+      <div class="analytics-grid">
+        <div class="stat-card">
+          <div class="stat-icon">👁</div>
+          <div class="stat-info">
+            <div class="stat-number" id="total-views">0</div>
+            <div class="stat-name">Page Views</div>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon">👤</div>
+          <div class="stat-info">
+            <div class="stat-number" id="unique-visitors">0</div>
+            <div class="stat-name">Unique Visitors</div>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon">⏱</div>
+          <div class="stat-info">
+            <div class="stat-number" id="avg-time">0:00</div>
+            <div class="stat-name">Avg. Time on Site</div>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon">📊</div>
+          <div class="stat-info">
+            <div class="stat-number" id="bounce-rate">0%</div>
+            <div class="stat-name">Bounce Rate</div>
+          </div>
+        </div>
+      </div>
+      <div class="section-title">Traffic Sources</div>
+      <div class="traffic-list" id="traffic-sources">
+        <div class="traffic-item"><span>Direct</span><span class="traffic-percent">45%</span></div>
+        <div class="traffic-item"><span>SoundCloud</span><span class="traffic-percent">25%</span></div>
+        <div class="traffic-item"><span>Social</span><span class="traffic-percent">20%</span></div>
+        <div class="traffic-item"><span>Search</span><span class="traffic-percent">10%</span></div>
+      </div>
+      <div class="section-title">Recent Activity</div>
+      <div class="activity-log" id="activity-log">
+        <div class="activity-item">System activated at startup</div>
+        <div class="activity-item">Infinity Loop running (Phase 3-5-8)</div>
+        <div class="activity-item">All AI services connected</div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="tab-content" id="seo-tab">
+    <div class="panel full-width">
+      <div class="panel-header"><span>SEO Settings</span></div>
+      <div class="input-group">
+        <label class="input-label">Site Title</label>
+        <input type="text" class="input-field" id="seo-title" value="VEGA Foundation Dashboard">
+      </div>
+      <div class="input-group">
+        <label class="input-label">Meta Description</label>
+        <textarea class="input-field textarea" id="seo-description" rows="3">VEGA.foundation - Autonomous Meta-System featuring Chrome/Glass architecture, Infinity Loop (3-5-8), and AI-powered agents. Innovation in every pixel, resonance in every core.</textarea>
+      </div>
+      <div class="input-group">
+        <label class="input-label">Keywords</label>
+        <input type="text" class="input-field" id="seo-keywords" value="VEGA, AI, autonomous system, meta-system, infinity loop, chrome glass, ANLAETAN">
+      </div>
+      <div class="input-group">
+        <label class="input-label">Open Graph Image URL</label>
+        <input type="text" class="input-field" id="seo-og-image" placeholder="https://example.com/og-image.png">
+      </div>
+      <div class="input-group">
+        <label class="input-label">Canonical URL</label>
+        <input type="text" class="input-field" id="seo-canonical" placeholder="https://vega.foundation">
+      </div>
+      <button class="save-btn" onclick="saveSeoSettings()">Save SEO Settings</button>
+    </div>
+  </div>
+  
+  <div class="tab-content" id="settings-tab">
+    <div class="panel full-width">
+      <div class="panel-header"><span>System Settings</span></div>
+      <div class="section-title">Display Settings</div>
+      <div class="module-row">
+        <div class="module-info">
+          <span class="module-name">Dark Mode</span>
+        </div>
+        <label class="toggle">
+          <input type="checkbox" checked id="setting-darkmode">
+          <span class="toggle-slider"></span>
+        </label>
+      </div>
+      <div class="module-row">
+        <div class="module-info">
+          <span class="module-name">Show Infinity Loop Animation</span>
+        </div>
+        <label class="toggle">
+          <input type="checkbox" checked id="setting-animation">
+          <span class="toggle-slider"></span>
+        </label>
+      </div>
+      <div class="module-row">
+        <div class="module-info">
+          <span class="module-name">Enable Sound Effects</span>
+        </div>
+        <label class="toggle">
+          <input type="checkbox" id="setting-sound">
+          <span class="toggle-slider"></span>
+        </label>
+      </div>
+      <div class="section-title">Notification Settings</div>
+      <div class="module-row">
+        <div class="module-info">
+          <span class="module-name">Email Notifications</span>
+        </div>
+        <label class="toggle">
+          <input type="checkbox" id="setting-email">
+          <span class="toggle-slider"></span>
+        </label>
+      </div>
+      <div class="module-row">
+        <div class="module-info">
+          <span class="module-name">System Alerts</span>
+        </div>
+        <label class="toggle">
+          <input type="checkbox" checked id="setting-alerts">
+          <span class="toggle-slider"></span>
+        </label>
+      </div>
+      <div class="section-title">Security</div>
+      <div class="input-group">
+        <label class="input-label">Change Password</label>
+        <input type="password" class="input-field" placeholder="New password">
+      </div>
+      <button class="save-btn" onclick="saveSettings()">Save Settings</button>
+    </div>
+  </div>
+  
+  <div class="tab-content" id="editor-tab">
+    <div class="panel full-width">
+      <div class="panel-header"><span>Content Editor</span></div>
+      <div class="input-group">
+        <label class="input-label">Hero Title</label>
+        <input type="text" class="input-field" id="edit-hero-title" value="VEGA.foundation">
+      </div>
+      <div class="input-group">
+        <label class="input-label">Hero Subtitle</label>
+        <input type="text" class="input-field" id="edit-hero-subtitle" value="INNOVATION IN EVERY PIXEL • RESONANCE IN EVERY CORE">
+      </div>
+      <div class="input-group">
+        <label class="input-label">Hero Tagline</label>
+        <input type="text" class="input-field" id="edit-hero-tagline" value="Autonomous Meta-System • Chrome/Glass Architecture • Infinity Loop Active">
+      </div>
+      <div class="input-group">
+        <label class="input-label">Vision Section Text</label>
+        <textarea class="input-field textarea" id="edit-vision" rows="3">AE/Æ Agents, Infinity Loops, DALL·E Assets, Time Crystal – autonomous Meta-System.</textarea>
+      </div>
+      <div class="input-group">
+        <label class="input-label">Signature</label>
+        <input type="text" class="input-field" id="edit-signature" value="ADAM EREN VEGA – Æ –">
+      </div>
+      <div class="section-title">Contact Information</div>
+      <div class="input-group">
+        <label class="input-label">Email</label>
+        <input type="email" class="input-field" id="edit-email" value="vegafoundation@proton.me">
+      </div>
+      <div class="input-group">
+        <label class="input-label">SoundCloud URL</label>
+        <input type="url" class="input-field" id="edit-soundcloud" value="https://soundcloud.com/anlaetan">
+      </div>
+      <div class="input-group">
+        <label class="input-label">GitHub URL</label>
+        <input type="url" class="input-field" id="edit-github" value="https://github.com/vegafoundation">
+      </div>
+      <button class="save-btn" onclick="saveContent()">Save Content</button>
+    </div>
+  </div>
+  
+  <div class="signature">ADAM EREN VEGA – Æ –</div>
+</div>
+
+<script src="admin.js"></script>
+</body>
+</html>

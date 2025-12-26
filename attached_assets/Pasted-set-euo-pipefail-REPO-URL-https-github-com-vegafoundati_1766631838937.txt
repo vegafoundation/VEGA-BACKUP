@@ -1,0 +1,78 @@
+set -euo pipefail
+
+REPO_URL="https://github.com/vegafoundation/VEGA.git"
+WORK="/tmp/vega-deep-hunt"
+mkdir -p "$WORK"
+cd "$WORK"
+
+echo "[1/7] Mirror clone (no working tree)..."
+rm -rf vega.git
+git clone --mirror "$REPO_URL" vega.git
+cd vega.git
+
+echo "[2/7] Add auth for fetch (token via env, NEVER echo)..."
+TOKEN="${GH_TOKEN:-${GITHUB_TOKEN:-}}"
+if [ -z "${TOKEN}" ]; then
+  echo "ERROR: GH_TOKEN or GITHUB_TOKEN not set. Set env and re-run." >&2
+  exit 1
+fi
+git remote set-url origin "https://${TOKEN}@github.com/vegafoundation/VEGA.git"
+
+echo "[3/7] Fetch EVERYTHING reachable, including PR refs..."
+git fetch --all --tags --prune
+# pull request refs (often contains old history!)
+git fetch origin '+refs/pull/*/head:refs/remotes/origin/pr/*' || true
+git fetch origin '+refs/pull/*/merge:refs/remotes/origin/pr-merge/*' || true
+
+echo "[4/7] List ALL refs (save)..."
+git show-ref > "$WORK/ALL_REFS.txt"
+echo "Saved: $WORK/ALL_REFS.txt"
+
+echo "[5/7] Object-level path hunt (fast): search stored file paths for alpha/cursor/vrc..."
+git rev-list --all --objects > "$WORK/ALL_OBJECTS.txt"
+grep -iE '(^|/)(alpha|cursor|vrc|vtc)(/|$)' "$WORK/ALL_OBJECTS.txt" | head -n 200 > "$WORK/HITS_paths.txt" || true
+echo "Saved: $WORK/HITS_paths.txt"
+
+echo "[6/7] If Alpha path found, identify candidate commits containing it..."
+if grep -qiE '(^|/)alpha(/|$)' "$WORK/HITS_paths.txt"; then
+  echo "ALPHA PATH HIT FOUND ✅"
+  echo "Top Alpha path hits:"
+  grep -iE '(^|/)alpha(/|$)' "$WORK/HITS_paths.txt" | head -n 50
+
+  # Try to find commits that include any Alpha path
+  echo "Scanning commits for Alpha path presence (may take a bit)..."
+  > "$WORK/ALPHA_COMMITS.txt"
+  for ref in $(cut -d' ' -f2 "$WORK/ALL_REFS.txt" | sort -u); do
+    sha=$(git rev-parse "$ref" 2>/dev/null || true)
+    [ -z "$sha" ] && continue
+    if git ls-tree -r --name-only "$sha" 2>/dev/null | grep -qiE '(^|/)alpha(/|$)'; then
+      echo "$ref $sha" >> "$WORK/ALPHA_COMMITS.txt"
+    fi
+  done
+  echo "Saved: $WORK/ALPHA_COMMITS.txt"
+else
+  echo "No Alpha path hit found in reachable objects."
+fi
+
+echo "[7/7] Generate report..."
+cat > "$WORK/DEEP_HUNT_REPORT.md" << EOF
+# VEGA Deep Hunt Report
+
+## What was searched
+- Mirror clone of repo (all refs)
+- All tags
+- PR refs: refs/pull/* head + merge
+- Object database path scan via: git rev-list --all --objects
+
+## Key outputs
+- ALL_REFS: $WORK/ALL_REFS.txt
+- ALL_OBJECTS: $WORK/ALL_OBJECTS.txt
+- HITS_paths: $WORK/HITS_paths.txt
+- ALPHA_COMMITS (if any): $WORK/ALPHA_COMMITS.txt
+
+## Next decision
+- If ALPHA_COMMITS exists: choose best ref/SHA and restore VEGA main to it (after preservation branches).
+- If not: Alpha likely exists only in an external clone/export/artifact (Replit/Cursor/local/ZIP/Drive) or was garbage-collected.
+EOF
+
+echo "DONE ✅ Report: $WORK/DEEP_HUNT_REPORT.md"

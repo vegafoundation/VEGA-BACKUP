@@ -1,0 +1,96 @@
+VEGA BACKUP PUSH — FINALIZATION PROMPT (Replit Agent)
+
+ROLE
+You are an infra+docs agent. Your job is to make the VEGA-BACKUP repo a canonical, rebuildable snapshot.
+Do not invent features. Do not add new engines. Do not write mythology.
+Make the repo truthful, reproducible, and easy to rebuild elsewhere.
+
+TARGET REPO
+This workspace is already pushed to GitHub (vegafoundation/VEGA-BACKUP).
+We will prepare one final “canonical backup push” commit that improves documentation + rebuild fidelity.
+
+GOALS
+A) Ensure “1:1 rebuild” is possible with clear commands.
+B) Mark what is REAL vs MOCK in UI and logic.
+C) Produce an “Implementation Gap Map” and “Improvement Proposals”.
+D) Ensure no secrets are present.
+E) Keep repo size lean and exportable.
+
+PHASE 1 — AUDIT (READ-ONLY)
+1. Locate frontend entrypoints (pages/components) and backend entrypoints (server/app/routes).
+2. Identify UI fields that display:
+   - ACTIVE/READY badges
+   - coherence/resonance scores
+   - agent lists
+   For each, determine if values are:
+   - HARDCODED
+   - SIMULATED (mock json)
+   - REAL (computed or fetched from backend)
+3. Identify all environment variables needed (from code + docs). Confirm .env.example matches.
+4. Identify any large/bloat directories (node_modules, archives, build outputs, caches) and ensure .gitignore covers them.
+
+PHASE 2 — CANONICAL DOCS
+Create or update these files at repo root:
+
+1) README.md (SHORT + TRUTHFUL)
+Include:
+- What VEGA-BACKUP is
+- How to run locally (3 commands)
+- “Reality Map” section:
+  - Real components (list)
+  - Mock/simulated components (list)
+- Where canonical docs live (VEGA_CANONICAL_BACKUP/)
+
+2) REBUILD_GUIDE.md
+Step-by-step:
+- prerequisites
+- install
+- run dev
+- build
+- deploy notes
+- common failures & fixes
+
+3) REALITY_MAP.md
+A table:
+- UI element
+- file path
+- data source (hardcoded/simulated/real)
+- how to make it real (one-line suggestion)
+
+4) IMPROVEMENT_ROADMAP.md
+Prioritized:
+- P0: one real metric (embedding similarity) wired end-to-end
+- P1: persistent memory (vector store)
+- P2: multi-agent coordination
+Keep it grounded and implementable.
+
+PHASE 3 — SAFETY / SECRETS
+1. Scan for secrets:
+- API keys
+- tokens
+- private URLs
+If found, redact and move to .env.example placeholder.
+2. Confirm no secrets are committed.
+
+PHASE 4 — REPO HYGIENE
+1. Ensure .gitignore is correct for:
+- node_modules
+- dist/build
+- .cache
+- logs
+- archives
+2. Ensure “download as zip” stays small and clean.
+
+PHASE 5 — FINAL COMMIT PREP
+1. Summarize changes in FINAL_BACKUP_REPORT.md (append a new “Repo Finalization” section).
+2. Prepare ONE clean commit with message:
+   "Canonical backup: rebuild guide + reality map + hygiene"
+
+OUTPUT REQUIRED
+Before finishing, print:
+- a list of files you created/updated
+- the exact local rebuild commands
+- a compact “Real vs Mock” bullet list
+- any remaining risks
+
+BEGIN NOW.

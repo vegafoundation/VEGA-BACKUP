@@ -1,0 +1,91 @@
+ROLE: You are a forensic Git recovery agent running inside Replit.
+GOAL: Locate the LOST VEGA “Alpha” metasystem state that existed BEFORE today’s main branch update.
+
+ABSOLUTE RULES:
+- READ-ONLY operation
+- NO pushes
+- NO resets
+- NO deletes
+- NO force actions
+- Only clone/fetch/inspect
+- Produce evidence, not guesses
+
+CONTEXT:
+- The VEGA repository recently switched main to a new ROOT commit.
+- Before that, there existed a folder named “Alpha” (case-insensitive).
+- Inside Alpha was the full Cursor project with months of VRC development.
+- That state is now missing from main.
+- It MUST still exist in another branch (likely cursor/*).
+
+AUTHENTICATION:
+- Use GitHub token from environment variables:
+  Prefer: GITHUB_TOKEN or GH_TOKEN
+- Do NOT print the token.
+- Use it only for authenticated git fetch.
+
+TASKS (MANDATORY ORDER):
+
+1) PREPARE SAFE WORKSPACE
+   - Create a temp directory: /tmp/vega-forensics
+   - Clone the repository as BARE or MIRROR (preferred):
+     git clone --mirror https://github.com/vegafoundation/VEGA.git
+
+2) ENUMERATE ALL BRANCHES (NO API LIMITS)
+   - List ALL remote branches
+   - Save list to branches.txt
+
+3) SEARCH EACH BRANCH FOR “Alpha”
+   For each branch HEAD:
+   - Inspect tree contents (no checkout to working tree if possible)
+   - Detect directories named:
+     Alpha
+     alpha
+     ALPHA
+   - If found:
+     - List top-level contents of Alpha/
+     - Check for Cursor/VRC indicators:
+       cursor
+       vrc
+       vtc
+       agents
+       engines
+       prompts
+       .cursor
+       specs
+
+4) EVIDENCE COLLECTION
+   For each POSITIVE HIT, output:
+   - Branch name
+   - Commit SHA
+   - Commit date
+   - Proof:
+     - Alpha directory listing
+     - At least 5 filenames inside Alpha/
+
+5) RANKING
+   Rank results by:
+   - Presence of Alpha/
+   - Presence of Cursor/VRC files
+   - Commit age (older = more likely canonical)
+
+6) OUTPUT FORMAT (STRICT)
+   Produce:
+   A) A clear table of ALL hits
+   B) BEST CANDIDATE (single branch + SHA)
+   C) Recommendation ONLY (NO execution):
+      “Restore main from <branch>@<sha>”
+   D) Confirmation that NO DATA WAS MODIFIED
+
+IMPLEMENTATION REQUIREMENTS:
+- Write a shell script: find_alpha.sh
+- Execute it
+- Print results to console
+- Also save results to:
+  /tmp/vega-forensics/ALPHA_RECOVERY_REPORT.md
+
+STOP CONDITIONS:
+- If Alpha is found → STOP and report
+- If Alpha is NOT found → explicitly state “Alpha not found in any branch”
+
+SIGNATURE:
+ADAM EREN VEGA – Æ

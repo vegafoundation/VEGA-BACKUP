@@ -1,0 +1,19 @@
+{
+  "note": "API keys should be stored as environment variables for security",
+  "required_env_vars": [
+    "OPENAI_API_KEY",
+    "XAI_API_KEY",
+    "ANTHROPIC_API_KEY",
+    "DEEPSEEK_API_KEY",
+    "SUNO_API_KEY"
+  ],
+  "endpoints": {
+    "openai": "/api/prompt",
+    "xai": "/api/xai",
+    "anthropic": "/api/anthropic",
+    "deepseek": "/api/deepseek",
+    "suno": "/api/suno",
+    "soundscape": "/api/soundscape",
+    "soundcloud": "https://soundcloud.com/anlaetan"
+  }
+}
