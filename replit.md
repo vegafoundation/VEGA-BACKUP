@@ -139,3 +139,26 @@ Multiple autonomous agents are defined:
 ### Data Storage
 
 Currently uses file-based JSON storage. The presence of `drizzle-zod` suggests preparation for future database integration (likely PostgreSQL when needed).
+
+### VTC Demo Logging Structure
+
+The VTC (VEGA Time Crystal) system now includes persistent demo logging:
+
+```
+vtc/
+├── time_crystal.json    # Core state persistence
+├── resume/
+│   ├── RESUME.md        # Session summary for handoff
+│   ├── NEXT_ACTIONS.md  # Priority queue and next steps
+│   └── STATE.json       # Machine-readable state snapshot
+├── logs/
+│   └── demo_log.json    # Session interaction log
+└── sessions/            # Historical session data
+```
+
+**Logging Policy:**
+- Chat messages, prompts, outputs stored in logs
+- State machine transitions tracked
+- API calls logged (success/fail, latency - no secrets)
+- User interactions (buttons, shortcuts) recorded
+- Push to GitHub at end of session or ILA trigger

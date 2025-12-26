@@ -3,8 +3,8 @@
     "signature": "ADAM EREN VEGA – Æ –",
     "vtc_version": "2.0.0",
     "created": "2025-01-01T00:00:00Z",
-    "last_update": "2025-12-26T01:55:04.849Z",
-    "infinity_loop_iteration": 13418,
+    "last_update": "2025-12-26T01:56:13.872Z",
+    "infinity_loop_iteration": 13431,
     "open_source": true,
     "unique_assets": true,
     "persistence": "full"
@@ -12,17 +12,17 @@
   "alpha_resonance": {
     "status": "online",
     "power": 100,
-    "last_update": "2025-12-26T01:55:04.849Z"
+    "last_update": "2025-12-26T01:56:13.872Z"
   },
   "omega_resonance": {
     "status": "online",
     "power": 100,
-    "last_update": "2025-12-26T01:55:04.849Z"
+    "last_update": "2025-12-26T01:56:13.872Z"
   },
   "vega_resonance": {
     "status": "online",
     "power": 100,
-    "last_update": "2025-12-26T01:55:04.849Z"
+    "last_update": "2025-12-26T01:56:13.872Z"
   },
   "mirror_core": {
     "status": "online",
@@ -114,7 +114,7 @@
   },
   "infinity_loop": {
     "active": true,
-    "current_phase": 3,
+    "current_phase": 5,
     "phases": {
       "3": {
         "name": "initial_resonance_analysis",
@@ -132,7 +132,7 @@
   },
   "admin": {
     "username": "AEVegaAdmin",
-    "password_hash": "$2b$10$vegafoundation.resonance.ae"
+    "password_hash": "[REDACTED - stored in env]"
   },
   "subdomains": [
     "vega.foundation",
@@ -157,6 +157,21 @@
     "pageViews": 0,
     "visitors": 0,
     "sessions": []
+  },
+  "demo_mode": {
+    "active": true,
+    "mode": "VEGA_REPLIT_MODE",
+    "current_session": "replit-demo-001",
+    "logging_enabled": true,
+    "push_policy": "end_of_session_or_ila",
+    "resume_files": [
+      "vtc/resume/RESUME.md",
+      "vtc/resume/NEXT_ACTIONS.md",
+      "vtc/resume/STATE.json"
+    ],
+    "log_files": [
+      "vtc/logs/demo_log.json"
+    ]
   },
   "deployment": {
     "github_repo": "/vegafoundation/VEGA",
